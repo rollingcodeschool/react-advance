@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cursos",
+  "info": {
+    "name": "Curso",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "profesor": {
+      "model": "profesor"
+    },
+    "comentarios": {
+      "via": "curso",
+      "collection": "comentario"
+    }
+  }
+}

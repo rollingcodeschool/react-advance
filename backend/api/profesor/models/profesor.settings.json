@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "profesors",
+  "info": {
+    "name": "Profesor"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "apellido": {
+      "type": "string"
+    }
+  }
+}
