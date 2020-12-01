@@ -2,19 +2,8 @@ import AsyncStorage from "@react-native-community/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  Alert,
-  Pressable,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
-import MyTabs from "../Components/MyTabs";
+import { View, Alert, FlatList } from "react-native";
+import { List } from "react-native-paper";
 
 function HomeScreen() {
   const navigation = useNavigation();
@@ -41,28 +30,17 @@ function HomeScreen() {
     fetchCursos();
   }, []);
 
-  const Item = ({ item: { nombre } }) => (
-    <Pressable>
-      <Image
-        style={{ height: 180, width: 110, borderRadius: 10, margin: 10 }}
-        source={{
-          uri: "https://reactnative.dev/img/tiny_logo.png",
-        }}
-      />
-    </Pressable>
+  const handlePress = (id) => navigation.navigate("Detalle", { id });
+
+  const renderItem = ({ item }) => (
+    <List.Item
+      title={item.nombre}
+      left={(props) => <List.Icon {...props} icon="folder" />}
+      onPress={() => handlePress(item.id)}
+    />
   );
 
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <MyTabs />
-      {/* <FlatList
-        data={cursos}
-        renderItem={Item}
-        keyExtractor={(item) => item.id}
-        horizontal
-      /> */}
-    </View>
-  );
+  return <FlatList data={cursos} renderItem={renderItem} />;
 }
 
 export default HomeScreen;
