@@ -3,10 +3,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../Screens/Home";
 import Settings from "../Screens/Settings";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import ImageViewer from "../Screens/Image";
 
 const Tab = createBottomTabNavigator();
 
-export default function Tabs() {
+export default function Tabs({ theme }) {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -31,9 +32,12 @@ export default function Tabs() {
         inactiveTintColor: "gray",
       }}
     >
-      <Tab.Screen name="Inicio" component={HomeScreen} />
+      <Tab.Screen
+        name="Inicio"
+        component={(props) => <HomeScreen {...props} theme={theme} />}
+      />
       <Tab.Screen name="Config" component={Settings} />
-      <Tab.Screen name="Perfil" component={Settings} />
+      <Tab.Screen name="Perfil" component={ImageViewer} />
     </Tab.Navigator>
   );
 }

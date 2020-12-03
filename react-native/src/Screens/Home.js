@@ -4,8 +4,10 @@ import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { View, Alert, FlatList } from "react-native";
 import { List } from "react-native-paper";
+import MonedaReader from "../Components/MonedaReader";
+import Theme from "../Components/Theme";
 
-function HomeScreen() {
+function HomeScreen({ theme }) {
   const navigation = useNavigation();
   const [cursos, setCursos] = useState([]);
 
@@ -22,7 +24,6 @@ function HomeScreen() {
           }
         );
         setCursos(data);
-        console.log(data);
       } catch (error) {
         Alert.alert("Error", error.message);
       }
@@ -40,7 +41,14 @@ function HomeScreen() {
     />
   );
 
-  return <FlatList data={cursos} renderItem={renderItem} />;
+  return (
+    <FlatList
+      data={cursos}
+      renderItem={renderItem}
+      ListHeaderComponent={() => <Theme theme={theme} />}
+      ListFooterComponent={MonedaReader}
+    />
+  );
 }
 
 export default HomeScreen;

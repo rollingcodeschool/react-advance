@@ -10,12 +10,14 @@ import Tabs from "./Components/Tabs";
 import Login from "./Screens/Login";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-community/async-storage";
+import AppProvider from "./Components/AppProvider";
 
 const Stack = createStackNavigator();
 
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [initialRouteName, setInitialRouteName] = useState("Login");
+  const [theme, setTheme] = useState("dark");
 
   useEffect(() => {
     const getToken = async () => {
@@ -36,13 +38,18 @@ export default function App() {
     );
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName={initialRouteName}>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Inicio" component={Tabs} />
-        <Stack.Screen name="Detalle" component={Details} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AppProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName={initialRouteName}>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen
+            name="Inicio"
+            component={(props) => <Tabs {...props} theme={theme} />}
+          />
+          <Stack.Screen name="Detalle" component={Details} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AppProvider>
   );
 }
 
