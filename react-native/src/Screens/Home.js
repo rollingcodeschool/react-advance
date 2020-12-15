@@ -6,6 +6,7 @@ import { View, Alert, FlatList } from "react-native";
 import { List } from "react-native-paper";
 import MonedaReader from "../Components/MonedaReader";
 import Theme from "../Components/Theme";
+import * as Location from 'expo-location';
 
 function HomeScreen({ theme }) {
   const navigation = useNavigation();
@@ -29,6 +30,15 @@ function HomeScreen({ theme }) {
       }
     };
     fetchCursos();
+    const getLocation = async () => {
+      let { status } = await Location.requestPermissionsAsync();
+
+      let location = await Location.watchPositionAsync();
+      const datos = await Location.reverseGeocodeAsync(location.coords)
+      console.log(datos);
+
+    }
+    getLocation()
   }, []);
 
   const handlePress = (id) => navigation.navigate("Detalle", { id });
