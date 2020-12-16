@@ -5,7 +5,9 @@ import {
   Button,
   Layout,
   Spinner,
+  TopNavigation,
   TopNavigationAction,
+  Icon,
 } from "@ui-kitten/components";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -17,29 +19,31 @@ const validationSchema = Yup.object({
     .required("Debe ingresar un email")
     .email("Debe ingresar un formato de email valido"),
   password: Yup.string().required("Deber ingrear una contraseña"),
+  username: Yup.string().required("Deber ingrear un nombre de usuario"),
+  confirmPassword: Yup.string()
+    .required("Debe ingresar la confirmacion de la constraseña")
+    .oneOf([Yup.ref("password"), null], "Las contraseñas deben coincidir"),
 });
 
 const initialValues = {
   email: "",
   password: "",
+  username: "",
+  confirmPassword: "",
 };
 
-const Login = ({ navigation }) => {
+const Register = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
-  const onSubmit = async ({ email, password }) => {
+  const onSubmit = async ({ username, email, password }) => {
     try {
       setLoading(true);
-      const { data } = await http.post("/auth/local", {
-        identifier: email,
+      const { data } = await http.post("/auth/local/register", {
+        username,
+        email,
         password,
       });
-      console.log(data);
-      await AsyncStorage.setItem("jwt", data.jwt);
-      navigation.reset({
-        index: 0,
-        routes: [{ name: "BottomTabs" }],
-      });
+      navigation.goBack();
     } catch (error) {
       Alert.alert("Error", error.message);
     } finally {
@@ -65,20 +69,29 @@ const Login = ({ navigation }) => {
 
   const submitProps = loading ? { accessoryLeft: LoadingIndicator } : {};
 
-  const handleRegister = () => navigation.navigate("Register");
-
+  const renderBackAction = () => (
+    <TopNavigationAction
+      icon={(props) => <Icon {...props} name="arrow-back" />}
+      onPress={() => navigation.goBack()}
+    />
+  );
   return (
-    <Layout style={styles.container}>
-      <View style={styles.loginContainer}>
-        <View style={styles.logoContainer}>
-          <Image
-            style={styles.logo}
-            source={{
-              uri:
-                "https://cdn.shopify.com/assets/images/logos/shopify-bag.png",
-            }}
-          />
-        </View>
+    <>
+      <TopNavigation
+        alignment="center"
+        title="Registrate"
+        accessoryLeft={renderBackAction}
+      />
+      <Layout style={styles.container}>
+        <Input
+          style={styles.inputs}
+          label="Nombre de usuario"
+          caption={errors.username}
+          status={errors.username ? "danger" : "primary"}
+          onChangeText={handleChange("username")}
+          onBlur={handleBlur("username")}
+          value={values.username}
+        />
         <Input
           style={styles.inputs}
           label="Email"
@@ -98,28 +111,21 @@ const Login = ({ navigation }) => {
           onBlur={handleBlur("password")}
           value={values.password}
         />
+        <Input
+          secureTextEntry
+          style={styles.inputs}
+          label="Confirmar contraseña"
+          onChangeText={handleChange("confirmPassword")}
+          caption={errors.confirmPassword}
+          status={errors.confirmPassword ? "danger" : "primary"}
+          onBlur={handleBlur("confirmPassword")}
+          value={values.confirmPassword}
+        />
         <Button onPress={handleSubmit} {...submitProps}>
-          Ingresar
+          Registrarse
         </Button>
-      </View>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Text category="c1">No esta registrado hace click</Text>
-        <Text
-          category="label"
-          style={{ marginLeft: 5, textDecorationLine: "underline" }}
-          onPress={handleRegister}
-        >
-          aca
-        </Text>
-      </View>
-    </Layout>
+      </Layout>
+    </>
   );
 };
 
@@ -150,4 +156,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default Register;

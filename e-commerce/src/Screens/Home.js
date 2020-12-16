@@ -1,8 +1,12 @@
 import React from "react";
-import { Text } from "@ui-kitten/components";
+import { Layout, Text } from "@ui-kitten/components";
 
 const Home = () => {
-  return <Text>Home</Text>;
+  return (
+    <Layout style={{ flex: 1 }}>
+      <Text>Home</Text>
+    </Layout>
+  );
 };
 
 export default Home;
