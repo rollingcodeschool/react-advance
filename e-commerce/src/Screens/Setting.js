@@ -1,12 +1,60 @@
 import React from "react";
-import { Layout, Text } from "@ui-kitten/components";
+import {
+  Button,
+  Icon,
+  Layout,
+  Text,
+  List,
+  ListItem,
+  TopNavigation,
+} from "@ui-kitten/components";
+import { AsyncStorage, StyleSheet } from "react-native";
 
-const Home = () => {
+const Setting = ({ navigation }) => {
+  const renderItemAccessory = (props) => (
+    <Icon {...props} name="arrow-ios-forward-outline" />
+  );
+
+  const renderItemIcon = (icon) => (props) => <Icon {...props} name={icon} />;
+
+  const renderItem = ({ item, index }) => (
+    <ListItem
+      title={item.title}
+      accessoryLeft={renderItemIcon(item.icon)}
+      accessoryRight={renderItemAccessory}
+      onPress={item.handlePress}
+    />
+  );
+
+  const logout = async () => {
+    await AsyncStorage.clear();
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Login" }],
+    });
+  };
+
+  const data = [
+    {
+      title: "Cambiar apariencia",
+      icon: "moon-outline",
+      handlePress: () => console.log("jola"),
+    },
+    {
+      title: "Salir",
+      icon: "person",
+      handlePress: logout
+    },
+  ];
+
   return (
     <Layout style={{ flex: 1 }}>
-      <Text>Settings</Text>
+      <TopNavigation alignment="center" title="Confugiraciones" />
+      <List data={data} renderItem={renderItem} />
     </Layout>
   );
 };
 
-export default Home;
+const styles = StyleSheet.create({});
+
+export default Setting;

@@ -7,6 +7,7 @@ import Register from "./Screens/Register";
 import { Text } from "@ui-kitten/components";
 import { AsyncStorage } from "react-native";
 import LottieView from "lottie-react-native";
+import ProductDetail from "./Screens/ProductDetail";
 
 const Stack = createStackNavigator();
 
@@ -41,6 +42,7 @@ const Router = () => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="BottomTabs" component={BottomTabs} />
+        <Stack.Screen name="ProductDetail" component={ProductDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );
