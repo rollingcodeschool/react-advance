@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
-  Card,
-  Icon,
   Layout,
   Text,
   TopNavigation,
@@ -11,6 +9,8 @@ import {
 import Axios from "axios";
 import { Alert, FlatList, Image } from "react-native";
 import LottieView from "lottie-react-native";
+import CartContext from "../Context/Cart";
+import ProductCard from "./ProductCard";
 
 const Home = ({ navigation }) => {
   const [products, setProducts] = useState([]);
@@ -43,32 +43,8 @@ const Home = ({ navigation }) => {
     );
   }
 
-  const renderProduct = ({ item: { image, title, price, id } }) => (
-    <Card
-      style={{ flex: 1, margin: 5 }}
-      onPress={() => navigation.navigate("ProductDetail", { productId: id })}
-      header={() => (
-        <Image
-          style={{ width: "100%", height: 100 }}
-          source={{
-            uri: image,
-          }}
-        />
-      )}
-      footer={() => (
-        <Button
-          appearance="ghost"
-          accessoryLeft={(props) => (
-            <Icon {...props} name="shopping-bag-outline" />
-          )}
-        />
-      )}
-    >
-      <Text category="label" numberOfLines={2}>
-        {title}
-      </Text>
-      <Text category="p2">$ {price}</Text>
-    </Card>
+  const renderProduct = ({ item }) => (
+    <ProductCard producto={item} navigation={navigation} />
   );
 
   return (
