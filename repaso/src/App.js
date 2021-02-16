@@ -1,53 +1,22 @@
-import logo from "./logo.svg";
-import "./App.css";
-import Contador from "./helloWorld";
-import { useEffect, useState } from "react";
-import React from "react";
+// import Counter from './components/class/Counter';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Counter from './components/class/Counter';
+import ListaCursos from './components/hooks-api/ListaCursos';
+import Sidebar from './components/sidebar/Sidebar';
+import './app.css';
 
-function App() {
-  const [count, setCount] = useState(0);
-  const [cursos, setCursos] = useState([]);
-  const [loadgin, setLoadgin] = useState(false);
-
-  useEffect(() => {
-    const fetchCursos = async () => {
-      try {
-        setLoadgin(true);
-        const cursosRaw = await fetch(
-          "https://react-advance-backend.herokuapp.com/cursos"
-        );
-        const cursos = await cursosRaw.json();
-        setCursos(cursos);
-      } catch (error) {
-        console.log("ups... algo salio mal");
-      } finally {
-        setLoadgin(false);
-      }
-    };
-    fetchCursos();
-  }, []);
-
-  const handleClick = () => setCount((valorCuenta) => valorCuenta + 1);
-
+const App = () => {
   return (
-    <div className="w-full h-screen flex justify-center items-center p-2 flex-col">
-      <Contador count={count} />
-      <button className="mt-4" onClick={handleClick}>
-        Aumentar
-      </button>
-      <div>
-        {loadgin ? (
-          "Cargando..."
-        ) : (
-          <ul>
-            {cursos.map(({ nombre, id }) => (
-              <li key={id}>{nombre}</li>
-            ))}
-          </ul>
-        )}
-      </div>
+    <div className='app'>
+      <Router>
+        <Sidebar />
+        <Switch>
+          <Route path='/classes' component={Counter} />
+          <Route path='/hooks-api' component={ListaCursos} />
+        </Switch>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;

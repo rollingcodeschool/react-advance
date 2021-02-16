@@ -1,0 +1,42 @@
+.todos {
+  height: fit-content;
+  width: 50%;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.todos h2 {
+  color: white;
+}
+
+.todo-input {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.todo-input input {
+  background-color: black;
+  color: white;
+}
+
+.todos-list--row {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.todos button {
+  background: transparent;
+  color: white;
+  margin-left: 10px;
+}
+
+.todos button:hover,
+.todos button:focus {
+  background: transparent;
+}

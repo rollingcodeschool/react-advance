@@ -1,0 +1,27 @@
+.login-container {
+  width: 400px;
+  min-height: 400px;
+  background: #609497 !important;
+}
+
+.login-container img {
+  width: 100%;
+}
+
+.login-container label {
+  color: white !important;
+}
+
+.login-container .ant-card-head-title {
+  text-align: center;
+}
+
+.login-container .ant-btn-primary {
+  color: #32517f;
+  background: #b1ada4;
+}
+
+.login-container .ant-btn-primary:hover,
+.login-container .ant-btn-primary:active {
+  background: #b38786;
+}
