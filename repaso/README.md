@@ -1,6 +1,6 @@
 # Repaso React Avanzado
 
-Este proyecto incluye repaso básicos en ReactJS incluyendo:
+Este proyecto incluye repaso básicos en ReactJS de:
 - Componentes basados en clase.
 - State y Props.
 - Manejo del state.
@@ -23,6 +23,6 @@ todas las dependencias instaladas.
 
 ### `npm start`
 
-Script utilizado para inicia la aplicacion.
+Script utilizado para iniciar la aplicacion.
 Abrir en el browser [http://localhost:3000](http://localhost:3000) para ver la app corriendo localmente.
 
