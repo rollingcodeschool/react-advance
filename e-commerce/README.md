@@ -1,6 +1,6 @@
-# GraphQL desde React
+# E-commerce
 
-En este proyecto nos conectamos a nuestro backedn y hacemos consultas usando graphQL
+Este projecto integra todo lo aprendido en la primera etapa del curso
 
 ### `npm install`
 
@@ -8,7 +8,7 @@ Script utilizado para instalar todas las dependencias necesarias para poder corr
 Una vez instaladas se deberia ver en el root del proyecto una carpeta llamada node_modules con 
 todas las dependencias instaladas.
 
-### `npm start`
+### `npm run android`
 
 Script utilizado para iniciar la aplicacion.
 

@@ -1,6 +1,6 @@
-# GraphQL desde React
+# React PWA
 
-En este proyecto nos conectamos a nuestro backedn y hacemos consultas usando graphQL
+En este proyecto muestra como React incorpora PWA con workbox por defecto todo funcionado
 
 ### `npm install`
 
