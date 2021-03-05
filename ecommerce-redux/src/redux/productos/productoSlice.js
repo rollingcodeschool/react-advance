@@ -13,6 +13,9 @@ export const counterSlice = createSlice({
     agregarProducto: (state, { payload: producto }) => {
       state.carritoCompras.push({ ...producto, cantidad: 1 });
     },
+    clearCarrito: (state) => {
+      state.carritoCompras = [];
+    },
   },
   extraReducers: {
     [fetchProductos.pending]: (state, action) => {
@@ -29,7 +32,7 @@ export const counterSlice = createSlice({
   },
 });
 
-export const { agregarProducto } = counterSlice.actions;
+export const { agregarProducto, clearCarrito } = counterSlice.actions;
 
 export const getCarrito = (state) => state.carrito.carritoCompras;
 

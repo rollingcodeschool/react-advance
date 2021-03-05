@@ -1,15 +1,20 @@
 import { Badge, Drawer, Menu } from "antd";
 import React, { useState } from "react";
-import { ShoppingCartOutlined } from "@ant-design/icons";
+import { ShoppingCartOutlined, LogoutOutlined } from "@ant-design/icons";
 import CarritoCompras from "./CarritoCompras";
 import { getCarrito } from "../redux/productos/productoSlice";
 import { useSelector } from "react-redux";
+import { auth } from "../utils/firebase";
 
 const TopMenu = () => {
   const carrito = useSelector(getCarrito);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSlider = () => setIsOpen((state) => !state);
+
+  const logout = () => {
+    auth.signOut();
+  };
 
   const badgeCount = carrito.length;
 
@@ -24,6 +29,9 @@ const TopMenu = () => {
             />
           </Badge>
         </Menu.Item>
+        <Menu.Item key="2">
+          <LogoutOutlined style={{ color: "white" }} onClick={logout} />
+        </Menu.Item>
       </Menu>
       <Drawer
         title="Carrito de compras"
@@ -33,7 +41,7 @@ const TopMenu = () => {
         visible={isOpen}
         width="450"
       >
-        <CarritoCompras />
+        <CarritoCompras toggleSlider={toggleSlider}/>
       </Drawer>
     </>
   );
